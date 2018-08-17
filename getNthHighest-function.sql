@@ -17,6 +17,7 @@ For example, given the above Employee table, the nth highest salary where n = 2 
 
 */
 
+-- PL/SQL Query
 CREATE FUNCTION getNthHighestSalary(N IN NUMBER) RETURN NUMBER IS
 result NUMBER;
 BEGIN
@@ -30,3 +31,19 @@ BEGIN
     WHERE r1 = N;
     RETURN result;
 END;
+
+
+-- MySQL Query
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+SET N = N - 1;
+  RETURN (
+      # Write your MySQL query statement below.
+      SELECT IFNULL((SELECT
+        DISTINCT Salary
+      FROM 
+        Employee
+      ORDER BY Salary DESC
+      LIMIT 1 OFFSET N), null)
+  );
+END

@@ -31,3 +31,12 @@ Using the above tables as example, return the following:
 select Name as Customers 
 from Customers
 where Id not in (select CustomerId from Orders) 
+
+# Write your MySQL query statement below
+SELECT Name as Customers FROM (
+    SELECT c.Id, c.Name, o.CustomerId
+    FROM Customers c
+    LEFT JOIN Orders o
+    ON c.Id = o.CustomerId
+) t
+WHERE t.CustomerId is NULL
